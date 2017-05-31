@@ -21,7 +21,7 @@ public class MovingRectView extends View implements Runnable{
     private Rect point;
 
     public MovingRectView(Context context) {
-        super(context );
+        super(context);
         touchX = 50;
         touchY = 50;
 
