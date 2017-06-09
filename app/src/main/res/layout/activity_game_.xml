@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context="net.ictcampus.meiersila.graphicdemo.Main_Activity"
-    android:id="@+id/layout">
+    android:id="@+id/layoutGame">
 
     <Button
         android:id="@+id/buttonStart"
@@ -13,5 +13,3 @@
         android:text="Start" />
 
 </LinearLayout>
-
-
