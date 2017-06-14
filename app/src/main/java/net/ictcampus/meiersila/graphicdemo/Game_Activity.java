@@ -45,7 +45,7 @@ public class Game_Activity extends AppCompatActivity {
                 view.postInvalidate();
                 /*Intent intent = new Intent(getApplicationContext(), Main_Activity.class);
                 startActivity(intent);*/
-                setContentView(R.layout.activity_game_);
+                //setContentView(new GameOverView(this));
                 break;
             case MotionEvent.ACTION_CANCEL:
                 break;

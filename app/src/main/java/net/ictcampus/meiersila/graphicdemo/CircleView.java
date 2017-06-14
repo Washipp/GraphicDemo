@@ -170,6 +170,7 @@ public class CircleView extends View implements Runnable {
             //TODO: calculate exact speed
 
             postInvalidate();
+
             try {
                 Thread.sleep(difficultySpeed);
             } catch (InterruptedException e) {

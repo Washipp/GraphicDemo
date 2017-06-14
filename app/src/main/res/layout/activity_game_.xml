@@ -3,13 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:screenOrientation="landscape"
     tools:context="net.ictcampus.meiersila.graphicdemo.Main_Activity"
     android:id="@+id/layoutGame">
-
-    <Button
-        android:id="@+id/buttonStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start" />
 
 </LinearLayout>
