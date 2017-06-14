@@ -12,9 +12,9 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.Display;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -25,6 +25,7 @@ import android.view.WindowManager;
 public class CircleView extends View implements Runnable {
     private ShapeDrawable rectangle;
     private Drawable ob;
+    private Bitmap returnBitmap;
     private Paint paint;
     private Thread thread;
     private float currX, currY, touchX, touchY;
@@ -180,17 +181,31 @@ public class CircleView extends View implements Runnable {
     }
 
     private Bitmap textAsBitmap(String text, float textSize, int textColor, int scale) {
-        paint.setTextSize(textSize);
-        paint.setColor(textColor);
-        paint.setAlpha(60);
-        paint.setTextAlign(Paint.Align.LEFT);
-        float baseline = -paint.ascent(); // ascent() is negative
-        int width = (int) (paint.measureText(text) + 0.5f); // round
-        int height = (int) (baseline + paint.descent() + 0.5f);
-        Bitmap image = Bitmap.createBitmap(width + scale, height + scale, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(image);
-        canvas.drawText(text, 0, baseline, paint);
-        return image;
+        final String fText = text;
+        final float fTextSize = textSize;
+        final int fTextColor = textColor;
+        final int fScale = scale;
+
+        new AsyncTask<Void, Void, Bitmap>() {
+            @Override
+            protected Bitmap doInBackground(Void... params) {
+                paint.setTextSize(fTextSize);
+                paint.setColor(fTextColor);
+                paint.setAlpha(60);
+                paint.setTextAlign(Paint.Align.LEFT);
+                float baseline = -paint.ascent(); // ascent() is negative
+                int width = (int) (paint.measureText(fText) + 0.5f); // round
+                int height = (int) (baseline + paint.descent() + 0.5f);
+                Bitmap image = Bitmap.createBitmap(width + fScale, height + fScale, Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(image);
+                canvas.drawText(fText, 0, baseline, paint);
+                return image;
+            }
+            protected void onPostExecute(Bitmap bitmap){
+                returnBitmap = bitmap;
+            }
+        }.execute();
+        return  returnBitmap;
     }
 
     public void newRound(int userRectPosX, int userRectPosY) {
